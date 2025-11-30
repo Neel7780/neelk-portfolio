@@ -1,18 +1,10 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { Github, Linkedin, Mail, Check, Copy } from "lucide-react"
+import { Github, Linkedin, Mail } from "lucide-react"
 
 export function ContactSection() {
-  const [copied, setCopied] = useState(false)
   const email = "neel.khatri@example.com"
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText(email)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   return (
     <section id="contact" className="bg-[#0A0A0A] py-32 md:py-40 lg:py-48 px-6 md:px-8">
@@ -23,39 +15,10 @@ export function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-white/30 mb-8">
-            Available for Internships
-          </p>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-10 leading-[1.1]">
-            Let's Build
-            <br />
-            Something Great.
+          <p className="text-sm md:text-base text-white/40 mb-6">Have an idea?</p>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-12 leading-[1.1]">
+            Let's Build It.
           </h2>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="mb-14"
-        >
-          <button
-            onClick={copyEmail}
-            className="inline-flex items-center gap-3 px-8 py-4 text-sm tracking-[0.12em] uppercase bg-white text-black hover:bg-white/90 transition-all duration-300 rounded-full font-medium"
-          >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4" strokeWidth={2} />
-                Copied!
-              </>
-            ) : (
-              <>
-                <Mail className="w-4 h-4" strokeWidth={2} />
-                Get in Touch
-              </>
-            )}
-          </button>
         </motion.div>
 
         {/* Social links */}
@@ -63,7 +26,7 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
           className="flex items-center justify-center gap-6"
         >
           <a
@@ -89,7 +52,7 @@ export function ContactSection() {
             className="text-white/30 hover:text-white transition-colors p-2"
             aria-label="Email"
           >
-            <Copy className="w-6 h-6" strokeWidth={1.5} />
+            <Mail className="w-6 h-6" strokeWidth={1.5} />
           </a>
         </motion.div>
 

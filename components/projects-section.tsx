@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react"
 const projects = [
   {
     title: "AlgoVisualizer",
-    tag: "C++ / Algorithms",
+    tag: "C++ / DSA",
     description: "Interactive pathfinding algorithm visualizer with real-time animation and step-by-step execution.",
   },
   {
@@ -23,7 +23,7 @@ const projects = [
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="bg-white py-24 md:py-32 px-6 md:px-8">
+    <section id="projects" className="bg-[#F5F5F5] py-24 md:py-32 px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="mb-12 md:mb-16">
@@ -41,7 +41,7 @@ export function ProjectsSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -8 }}
-              className="group relative bg-white/80 backdrop-blur-sm border border-gray-200 p-6 md:p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group relative bg-white border border-black/10 p-6 md:p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300"
             >
               {/* Tag */}
               <p className="text-[10px] tracking-[0.15em] uppercase text-black/40 mb-4 font-mono">{project.tag}</p>

@@ -19,11 +19,11 @@ const techStack = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="bg-[#F5F5F5] py-24 md:py-32 px-6 md:px-8">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="bg-white py-24 md:py-32 px-6 md:px-8">
+      <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <div className="mb-12 md:mb-16">
-          <p className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-black/50 mb-2">Background</p>
+          <p className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-black/40 mb-2">Background</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-black">About Me</h2>
         </div>
 
@@ -35,19 +35,9 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-base md:text-lg text-black/70 leading-relaxed mb-6">
-              I'm a 2nd year Computer Science student with a passion for building efficient, scalable software. My
-              journey started with competitive programming in C++, which taught me the fundamentals of algorithms and
-              data structures.
-            </p>
-            <p className="text-base md:text-lg text-black/70 leading-relaxed mb-6">
-              Today, I focus on full-stack web development, combining my problem-solving skills with modern frameworks
-              to create exceptional user experiences. I'm particularly interested in open source projects and
-              contributing to developer tools.
-            </p>
-            <p className="text-base md:text-lg text-black/70 leading-relaxed">
-              When I'm not coding, you'll find me exploring new technologies, reading about system design, or mentoring
-              fellow students in programming fundamentals.
+            <p className="text-xl md:text-2xl lg:text-3xl text-black/70 leading-relaxed font-light">
+              I bridge the gap between systems programming (C++) and modern web development (Next.js). My focus is on
+              building scalable, high-performance applications that solve real problems.
             </p>
           </motion.div>
 

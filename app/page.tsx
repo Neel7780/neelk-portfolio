@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react"
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import { Navbar } from "@/components/navbar"
 import { FloatingIcons } from "@/components/floating-icons"
+import { ExperienceSection } from "@/components/experience-section"
 import { ProjectsSection } from "@/components/projects-section"
 import { AboutSection } from "@/components/about-section"
 import { ContactSection } from "@/components/contact-section"
@@ -62,6 +63,8 @@ export default function NeelDevPortfolio() {
 
   return (
     <div ref={containerRef} className="relative w-full cursor-none">
+      <Navbar />
+
       {/* ==================== HERO SECTION WITH FLASHLIGHT ==================== */}
       <section
         id="hero"
@@ -69,8 +72,9 @@ export default function NeelDevPortfolio() {
         onMouseMove={handleMouseMove}
         className="relative w-full h-screen overflow-hidden"
       >
-        {/* ==================== LAYER A: Light/Client Layer ==================== */}
+        {/* ==================== LAYER A: Light/Default Layer ==================== */}
         <div className="absolute inset-0 bg-[#F8F8F8]">
+          {/* Grid pattern */}
           <div
             className="absolute inset-0 opacity-[0.12]"
             style={{
@@ -86,24 +90,21 @@ export default function NeelDevPortfolio() {
 
           <div className="absolute inset-0 grid place-items-center px-6 md:px-8">
             <div className="text-center w-full max-w-4xl">
-              {/* Sub-headline - Layer A */}
-              <p className="text-[10px] sm:text-xs md:text-sm text-black/50 uppercase mb-4 md:mb-6 font-medium tracking-[0.25em]">
-                2nd Year Computer Science Student & Software Developer
-              </p>
-
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black uppercase" style={headlineStyles}>
+              <h1
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black uppercase font-sans"
+                style={headlineStyles}
+              >
                 NEEL KHATRI
               </h1>
 
-              {/* Tagline */}
-              <p className="mt-6 md:mt-8 text-xs md:text-sm text-black/40 tracking-[0.15em] uppercase">
-                Building Ideas into Reality
+              <p className="mt-6 md:mt-8 text-sm md:text-base text-black/50 tracking-wide">
+                2nd Year Student • Core Member @ GDG On Campus
               </p>
             </div>
           </div>
 
           {/* Social links - bottom left */}
-          <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 flex items-center gap-4 z-50">
+          <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 flex items-center gap-4 z-40">
             <a
               href="https://github.com"
               target="_blank"
@@ -122,7 +123,8 @@ export default function NeelDevPortfolio() {
             </a>
           </div>
 
-          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-200">
+          {/* Resume button - bottom right */}
+          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-[200]">
             <a
               href="#"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-[10px] md:text-xs tracking-[0.15em] uppercase border border-black/20 text-black/60 hover:bg-black hover:text-white transition-all duration-300 bg-[#F8F8F8]"
@@ -132,7 +134,7 @@ export default function NeelDevPortfolio() {
           </div>
         </div>
 
-        {/* ==================== LAYER B: Dark/Developer Layer (Revealed) ==================== */}
+        {/* ==================== LAYER B: Dark/Revealed Layer ==================== */}
         {!isTouchDevice && (
           <motion.div
             className="absolute inset-0 bg-[#0A0A0A] hidden md:block"
@@ -140,6 +142,7 @@ export default function NeelDevPortfolio() {
               clipPath: isClient ? clipPath : "circle(0px at 50% 50%)",
             }}
           >
+            {/* Grid pattern (inverted) */}
             <div
               className="absolute inset-0 opacity-[0.25]"
               style={{
@@ -155,27 +158,21 @@ export default function NeelDevPortfolio() {
 
             <div className="absolute inset-0 grid place-items-center px-6 md:px-8">
               <div className="text-center w-full max-w-4xl">
-                {/* Sub-headline - Layer B (monospace) */}
-                <p className="text-[10px] sm:text-xs md:text-sm text-white/50 uppercase mb-4 md:mb-6 font-mono tracking-[0.25em]">
-                  C++ • Next.js • Algorithms • MERN Stack
-                </p>
-
                 <h1
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white uppercase"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white uppercase font-mono"
                   style={headlineStyles}
                 >
-                  CODE & MATH
+                  POWERED BY MATH & CODE
                 </h1>
 
-                {/* Tagline (monospace) */}
-                <p className="mt-6 md:mt-8 text-xs md:text-sm text-white/40 tracking-[0.15em] uppercase font-mono">
-                  neel.khatri // developer
+                <p className="mt-6 md:mt-8 text-sm md:text-base text-white/50 tracking-wide font-mono">
+                  C++ • Next.js • Algorithms • MERN Stack
                 </p>
               </div>
             </div>
 
             {/* Social links - bottom left (inverted) */}
-            <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 flex items-center gap-4 z-50">
+            <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 flex items-center gap-4 z-40">
               <a
                 href="https://github.com"
                 target="_blank"
@@ -194,7 +191,8 @@ export default function NeelDevPortfolio() {
               </a>
             </div>
 
-            <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-200">
+            {/* Resume button - bottom right (inverted) */}
+            <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-[200]">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-[10px] md:text-xs tracking-[0.15em] uppercase border border-white/20 text-white/60 hover:bg-white hover:text-black transition-all duration-300 font-mono bg-[#0A0A0A]"
@@ -205,10 +203,10 @@ export default function NeelDevPortfolio() {
           </motion.div>
         )}
 
-        {/* Custom cursor */}
+        {/* Custom crosshair cursor */}
         {!isTouchDevice && (
           <motion.div
-            className="pointer-events-none fixed z-100 hidden md:block"
+            className="pointer-events-none fixed z-[100] hidden md:block"
             style={{
               x: springX,
               y: springY,
@@ -218,19 +216,18 @@ export default function NeelDevPortfolio() {
           >
             <div className="relative w-8 h-8">
               <div className="absolute inset-0 rounded-full border-[1.5px] border-white mix-blend-difference" />
-              <div className="absolute top-1/2 left-1/2 w-3 h-1px -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
-              <div className="absolute top-1/2 left-1/2 w-1px h-3 -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
+              <div className="absolute top-1/2 left-1/2 w-3 h-[1px] -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
+              <div className="absolute top-1/2 left-1/2 w-[1px] h-3 -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
             </div>
           </motion.div>
         )}
       </section>
 
       {/* ==================== OTHER SECTIONS ==================== */}
+      <ExperienceSection />
       <ProjectsSection />
       <AboutSection />
       <ContactSection />
-
-      <Navbar />
     </div>
   )
 }

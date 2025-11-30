@@ -30,10 +30,16 @@ export function Navbar() {
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-8 text-xs tracking-[0.12em] uppercase font-medium">
           <button
+            onClick={() => scrollToSection("experience")}
+            className="text-black/50 hover:text-black transition-colors"
+          >
+            Experience
+          </button>
+          <button
             onClick={() => scrollToSection("projects")}
             className="text-black/50 hover:text-black transition-colors"
           >
-            Projects
+            Work
           </button>
           <button onClick={() => scrollToSection("about")} className="text-black/50 hover:text-black transition-colors">
             About
@@ -46,6 +52,7 @@ export function Navbar() {
           </button>
         </div>
 
+        {/* Mobile hamburger */}
         <button onClick={() => setIsMenuOpen(true)} className="md:hidden text-black p-2 -mr-2" aria-label="Open menu">
           <Menu className="w-5 h-5" strokeWidth={1.5} />
         </button>
@@ -81,6 +88,12 @@ export function Navbar() {
                 className="text-3xl font-semibold tracking-[0.08em] uppercase text-black hover:opacity-50 transition-opacity"
               >
                 Home
+              </button>
+              <button
+                onClick={() => scrollToSection("experience")}
+                className="text-3xl font-semibold tracking-[0.08em] uppercase text-black hover:opacity-50 transition-opacity"
+              >
+                Experience
               </button>
               <button
                 onClick={() => scrollToSection("projects")}
