@@ -122,7 +122,7 @@ export default function NeelDevPortfolio() {
             </a>
           </div>
 
-          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-[200]">
+          <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-200">
             <a
               href="#"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-[10px] md:text-xs tracking-[0.15em] uppercase border border-black/20 text-black/60 hover:bg-black hover:text-white transition-all duration-300 bg-[#F8F8F8]"
@@ -194,7 +194,7 @@ export default function NeelDevPortfolio() {
               </a>
             </div>
 
-            <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-[200]">
+            <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-200">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-[10px] md:text-xs tracking-[0.15em] uppercase border border-white/20 text-white/60 hover:bg-white hover:text-black transition-all duration-300 font-mono bg-[#0A0A0A]"
@@ -208,7 +208,7 @@ export default function NeelDevPortfolio() {
         {/* Custom cursor */}
         {!isTouchDevice && (
           <motion.div
-            className="pointer-events-none fixed z-[100] hidden md:block"
+            className="pointer-events-none fixed z-100 hidden md:block"
             style={{
               x: springX,
               y: springY,
@@ -218,8 +218,8 @@ export default function NeelDevPortfolio() {
           >
             <div className="relative w-8 h-8">
               <div className="absolute inset-0 rounded-full border-[1.5px] border-white mix-blend-difference" />
-              <div className="absolute top-1/2 left-1/2 w-3 h-[1px] -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
-              <div className="absolute top-1/2 left-1/2 w-[1px] h-3 -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
+              <div className="absolute top-1/2 left-1/2 w-3 h-1px -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
+              <div className="absolute top-1/2 left-1/2 w-1px h-3 -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
             </div>
           </motion.div>
         )}
