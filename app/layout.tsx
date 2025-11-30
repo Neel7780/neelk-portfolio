@@ -1,17 +1,27 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Fira_Code } from "next/font/google"
+import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const inter = Inter({
-  subsets: ["latin"],
+// Use local fonts to avoid Google Fonts download failures in restricted environments.
+// Place font files under `public/fonts/` (see project README or instructions below).
+const inter = localFont({
+  src: [
+    {
+      path: "../public/fonts/Inter-Variable.woff2",
+      // variable font contains multiple weights — adjust if you use separate files
+    },
+  ],
   variable: "--font-sans",
-  weight: ["400", "500", "600", "700", "800", "900"],
 })
 
-const firaCode = Fira_Code({
-  subsets: ["latin"],
+const firaCode = localFont({
+  src: [
+    {
+      path: "../public/fonts/FiraCode-Regular.woff2",
+    },
+  ],
   variable: "--font-mono",
 })
 

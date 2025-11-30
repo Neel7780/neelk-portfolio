@@ -1,23 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Experience } from "@/lib/notion"
 
-const experiences = [
-  {
-    role: "Core Team Member",
-    org: "Google Developer Groups (GDG) on Campus DAU",
-    date: "2024 - Present",
-    description: "Organizing technical workshops, hackathons, and mentoring students in web technologies.",
-  },
-  {
-    role: "Freelance Full Stack Developer",
-    org: "Open for Hire",
-    date: "Present",
-    description: "Building high-performance web applications for clients using Next.js and MERN Stack.",
-  },
-]
+interface ExperienceSectionProps {
+  experience: Experience[];
+}
 
-export function ExperienceSection() {
+export function ExperienceSection({ experience }: ExperienceSectionProps) {
   return (
     <section id="experience" className="bg-white py-24 md:py-32 px-6 md:px-8">
       <div className="max-w-4xl mx-auto">
@@ -29,9 +19,9 @@ export function ExperienceSection() {
 
         {/* Experience list with horizontal dividers (Swiss Style) */}
         <div className="space-y-0">
-          {experiences.map((exp, index) => (
+          {experience.map((exp, index) => (
             <motion.div
-              key={exp.role}
+              key={exp.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -47,7 +37,7 @@ export function ExperienceSection() {
 
                 {/* Middle column: Date */}
                 <div className="md:col-span-2">
-                  <p className="text-xs tracking-[0.1em] uppercase text-black/40 font-mono">{exp.date}</p>
+                  <p className="text-xs tracking-widest uppercase text-black/40 font-mono">{exp.date}</p>
                 </div>
 
                 {/* Right column: Description */}

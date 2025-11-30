@@ -2,26 +2,13 @@
 
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import { Project } from "@/lib/notion"
 
-const projects = [
-  {
-    title: "AlgoVisualizer",
-    tag: "C++ / DSA",
-    description: "Interactive pathfinding algorithm visualizer with real-time animation and step-by-step execution.",
-  },
-  {
-    title: "CampusConnect",
-    tag: "MERN Stack",
-    description: "Student collaboration platform for project teams, study groups, and campus events.",
-  },
-  {
-    title: "DevPortfolio",
-    tag: "Next.js",
-    description: "High-performance personal website with flashlight reveal interaction and smooth animations.",
-  },
-]
+interface ProjectsSectionProps {
+  projects: Project[];
+}
 
-export function ProjectsSection() {
+export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section id="projects" className="bg-[#F5F5F5] py-24 md:py-32 px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
@@ -34,8 +21,8 @@ export function ProjectsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {projects.map((project, index) => (
             <motion.a
-              key={project.title}
-              href="#"
+              key={project.id}
+              href={project.link}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -43,14 +30,20 @@ export function ProjectsSection() {
               whileHover={{ y: -8 }}
               className="group relative bg-white border border-black/10 p-6 md:p-8 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300"
             >
-              {/* Tag */}
-              <p className="text-[10px] tracking-[0.15em] uppercase text-black/40 mb-4 font-mono">{project.tag}</p>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <p key={tag} className="text-[10px] tracking-[0.15em] uppercase text-black/40 font-mono">
+                    {tag}
+                  </p>
+                ))}
+              </div>
 
               {/* Title with arrow */}
               <div className="flex items-start justify-between gap-4 mb-3">
                 <h3 className="text-lg md:text-xl font-semibold text-black tracking-tight">{project.title}</h3>
                 <ArrowUpRight
-                  className="w-4 h-4 text-black/20 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 mt-1"
+                  className="w-4 h-4 text-black/20 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-1"
                   strokeWidth={1.5}
                 />
               </div>

@@ -1,9 +1,6 @@
 1:"$Sreact.fragment"
-2:I[47257,["/_next/static/chunks/42879de7b8087bc9.js"],"ClientPageRoot"]
-3:I[31713,["/_next/static/chunks/5bab93f39577e409.js","/_next/static/chunks/a5cf5d23a982b972.js"],"default"]
-6:I[97367,["/_next/static/chunks/42879de7b8087bc9.js"],"OutletBoundary"]
-7:"$Sreact.suspense"
-0:{"buildId":"zX8cZV7yYD91aLoZRsU31","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/_next/static/chunks/a5cf5d23a982b972.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
-4:{}
-5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
-8:null
+2:I[99429,["/_next/static/chunks/5bab93f39577e409.js","/_next/static/chunks/f22e8c87f1bfe592.js"],"HomeClient"]
+3:I[97367,["/_next/static/chunks/42879de7b8087bc9.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"elETSxPXnD8acBkdQqUc1","rsc":["$","$1","c",{"children":[["$","$L2",null,{"projects":[{"id":"2bb77790-3568-80f1-a79d-d68df7d7bdfa","title":"Untitled","description":"Clone of Infinite text editor canvas - Excalidraw","tags":["Turborepo","Next.js","Socket.io"],"link":"#"},{"id":"2bb77790-3568-8029-aefd-e72bec72d136","title":"Untitled","description":"Online Physics learning for JEE/NEET ","tags":["Next.js"],"link":"#"}],"experience":[{"id":"2bb77790-3568-8150-beb9-e0ffb9f059b8","role":"Freelance Developer","org":"","date":"Present","description":"Building scalable web applications for clients using Next.js and Modern Tech Stack."},{"id":"2bb77790-3568-814f-93c5-e506f7fdcc8e","role":"Core Member","org":"","date":"Nov, 2024 - Present","description":"Organizing technical workshops, managing events, and mentoring juniors in Web Development."}]}],[["$","script","script-0",{"src":"/_next/static/chunks/f22e8c87f1bfe592.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null
