@@ -104,7 +104,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
               </h1>
 
               <p className="mt-6 md:mt-8 text-sm md:text-base text-black/50 tracking-wide">
-                2nd Year Student • Core Member @ GDG On Campus
+                2nd Year Student • Software Developer
               </p>
             </div>
           </div>
@@ -112,7 +112,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
           {/* Social links - bottom left */}
           <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 flex items-center gap-4 z-40">
             <a
-              href="https://github.com"
+              href="https://github.com/Neel7780"
               target="_blank"
               rel="noopener noreferrer"
               className="text-black/40 hover:text-black transition-colors"
@@ -120,7 +120,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
               <Github className="w-5 h-5" strokeWidth={1.5} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/neel-khatri-aa1618242/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-black/40 hover:text-black transition-colors"
@@ -132,7 +132,9 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
           {/* Resume button - bottom right */}
           <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-200">
             <a
-              href="#"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-[10px] md:text-xs tracking-[0.15em] uppercase border border-black/20 text-black/60 hover:bg-black hover:text-white transition-all duration-300 bg-[#F8F8F8]"
             >
               Download Resume
@@ -180,7 +182,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
             {/* Social links - bottom left (inverted) */}
             <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 flex items-center gap-4 z-40">
               <a
-                href="https://github.com"
+                href="https://github.com/Neel7780"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/40 hover:text-white transition-colors"
@@ -188,7 +190,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
                 <Github className="w-5 h-5" strokeWidth={1.5} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/neel-khatri-aa1618242/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/40 hover:text-white transition-colors"
@@ -200,7 +202,9 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
             {/* Resume button - bottom right (inverted) */}
             <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8 z-200">
               <a
-                href="#"
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-[10px] md:text-xs tracking-[0.15em] uppercase border border-white/20 text-white/60 hover:bg-white hover:text-black transition-all duration-300 font-mono bg-[#0A0A0A]"
               >
                 Download Resume
