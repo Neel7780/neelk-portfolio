@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Github, Linkedin, Mail } from "lucide-react"
 
 export function ContactSection() {
-  const email = "neel.khatri@example.com"
+  const email = "neelkhatri7780@gmail.com"
 
   return (
     <section id="contact" className="bg-[#0A0A0A] py-32 md:py-40 lg:py-48 px-6 md:px-8">
@@ -30,7 +30,7 @@ export function ContactSection() {
           className="flex items-center justify-center gap-6"
         >
           <a
-            href="https://github.com"
+            href="https://github.com/Neel7780"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/30 hover:text-white transition-colors p-2"
@@ -39,7 +39,7 @@ export function ContactSection() {
             <Github className="w-6 h-6" strokeWidth={1.5} />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/neel-khatri-aa1618242/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/30 hover:text-white transition-colors p-2"

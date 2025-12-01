@@ -71,14 +71,12 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
     <div ref={containerRef} className="relative w-full">
       <Navbar />
 
-      {/* ==================== HERO SECTION WITH FLASHLIGHT ==================== */}
       <section
         id="hero"
         ref={heroRef}
         onMouseMove={handleMouseMove}
         className="relative w-full h-screen overflow-hidden cursor-none"
       >
-        {/* ==================== LAYER A: Light/Default Layer ==================== */}
         <div className="absolute inset-0 bg-[#F8F8F8]">
           {/* Grid pattern */}
           <div
@@ -142,7 +140,6 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
           </div>
         </div>
 
-        {/* ==================== LAYER B: Dark/Revealed Layer ==================== */}
         {!isTouchDevice && (
           <motion.div
             className="absolute inset-0 bg-[#0A0A0A] hidden md:block"
@@ -233,7 +230,6 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
         )}
       </section>
 
-      {/* ==================== OTHER SECTIONS ==================== */}
       <ExperienceSection experience={experience} />
       <ProjectsSection projects={projects} />
       <AboutSection />
