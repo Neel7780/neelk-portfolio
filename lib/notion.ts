@@ -16,6 +16,13 @@ const extractDatabaseId = (idOrUrl: string): string => {
   return id;
 };
 
+const ensureProtocol = (url: string | null | undefined): string => {
+  if (!url) return "";
+  if (url === "#") return "#";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+};
+
 const queryDatabase = async (id: string, sorts: any[]) => {
   try {
     // Using raw fetch because the Notion SDK is behaving erratically in this environment
@@ -70,7 +77,8 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
-  link: string;
+  liveLink?: string;
+  githubLink?: string;
 }
 
 export interface Experience {
@@ -90,21 +98,24 @@ export const getProjects = async (): Promise<Project[]> => {
         title: "AlgoVisualizer",
         tags: ["C++", "DSA"],
         description: "Interactive pathfinding algorithm visualizer with real-time animation and step-by-step execution.",
-        link: "#",
+        liveLink: "#",
+        githubLink: "#",
       },
       {
         id: "2",
         title: "CampusConnect",
         tags: ["MERN Stack"],
         description: "Student collaboration platform for project teams, study groups, and campus events.",
-        link: "#",
+        liveLink: "#",
+        githubLink: "#",
       },
       {
         id: "3",
         title: "DevPortfolio",
         tags: ["Next.js"],
         description: "High-performance personal website with flashlight reveal interaction and smooth animations.",
-        link: "#",
+        liveLink: "#",
+        githubLink: "#",
       },
     ];
   }
@@ -126,7 +137,8 @@ export const getProjects = async (): Promise<Project[]> => {
         title: page.properties.Name?.title[0]?.plain_text || "Untitled",
         description: page.properties.Description?.rich_text[0]?.plain_text || "",
         tags: page.properties.Tags?.multi_select.map((tag: any) => tag.name) || [],
-        link: page.properties.Link?.url || "#",
+        liveLink: ensureProtocol(page.properties.LiveLink?.url),
+        githubLink: ensureProtocol(page.properties.GitHub?.url),
       };
     });
   } catch (error: any) {
@@ -142,21 +154,24 @@ export const getProjects = async (): Promise<Project[]> => {
         title: "AlgoVisualizer",
         tags: ["C++", "DSA"],
         description: "Interactive pathfinding algorithm visualizer with real-time animation and step-by-step execution.",
-        link: "#",
+        liveLink: "#",
+        githubLink: "#",
       },
       {
         id: "2",
         title: "CampusConnect",
         tags: ["MERN Stack"],
         description: "Student collaboration platform for project teams, study groups, and campus events.",
-        link: "#",
+        liveLink: "#",
+        githubLink: "#",
       },
       {
         id: "3",
         title: "DevPortfolio",
         tags: ["Next.js"],
         description: "High-performance personal website with flashlight reveal interaction and smooth animations.",
-        link: "#",
+        liveLink: "#",
+        githubLink: "#",
       },
     ];
   }

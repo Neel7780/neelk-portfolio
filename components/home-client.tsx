@@ -68,7 +68,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
   }
 
   return (
-    <div ref={containerRef} className="relative w-full cursor-none">
+    <div ref={containerRef} className="relative w-full">
       <Navbar />
 
       {/* ==================== HERO SECTION WITH FLASHLIGHT ==================== */}
@@ -76,7 +76,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
         id="hero"
         ref={heroRef}
         onMouseMove={handleMouseMove}
-        className="relative w-full h-screen overflow-hidden"
+        className="relative w-full h-screen overflow-hidden cursor-none"
       >
         {/* ==================== LAYER A: Light/Default Layer ==================== */}
         <div className="absolute inset-0 bg-[#F8F8F8]">
@@ -216,7 +216,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
         {/* Custom crosshair cursor */}
         {!isTouchDevice && (
           <motion.div
-            className="pointer-events-none fixed z-100 hidden md:block"
+            className="pointer-events-none absolute z-100 hidden md:block"
             style={{
               x: springX,
               y: springY,
