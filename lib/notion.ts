@@ -77,6 +77,7 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
+  category: string;
   liveLink?: string;
   githubLink?: string;
 }
@@ -98,24 +99,27 @@ export const getProjects = async (): Promise<Project[]> => {
         title: "AlgoVisualizer",
         tags: ["C++", "DSA"],
         description: "Interactive pathfinding algorithm visualizer with real-time animation and step-by-step execution.",
-        liveLink: "#",
-        githubLink: "#",
+        category: "Dev",
+        liveLink: undefined,
+        githubLink: undefined,
       },
       {
         id: "2",
         title: "CampusConnect",
         tags: ["MERN Stack"],
         description: "Student collaboration platform for project teams, study groups, and campus events.",
-        liveLink: "#",
-        githubLink: "#",
+        category: "College",
+        liveLink: undefined,
+        githubLink: undefined,
       },
       {
         id: "3",
         title: "DevPortfolio",
         tags: ["Next.js"],
         description: "High-performance personal website with flashlight reveal interaction and smooth animations.",
-        liveLink: "#",
-        githubLink: "#",
+        category: "Dev",
+        liveLink: undefined,
+        githubLink: undefined,
       },
     ];
   }
@@ -132,13 +136,17 @@ export const getProjects = async (): Promise<Project[]> => {
     ]) as any;
 
     return response.results.map((page: any) => {
+      const rawLive = page.properties.LiveLink?.url;
+      const rawGithub = page.properties.GitHub?.url;
+
       return {
         id: page.id,
         title: page.properties.Name?.title[0]?.plain_text || "Untitled",
         description: page.properties.Description?.rich_text[0]?.plain_text || "",
         tags: page.properties.Tags?.multi_select.map((tag: any) => tag.name) || [],
-        liveLink: ensureProtocol(page.properties.LiveLink?.url),
-        githubLink: ensureProtocol(page.properties.GitHub?.url),
+        category: page.properties.Category?.select?.name || "Dev",
+        liveLink: rawLive ? ensureProtocol(rawLive) : undefined,
+        githubLink: rawGithub ? ensureProtocol(rawGithub) : undefined,
       };
     });
   } catch (error: any) {
@@ -154,24 +162,27 @@ export const getProjects = async (): Promise<Project[]> => {
         title: "AlgoVisualizer",
         tags: ["C++", "DSA"],
         description: "Interactive pathfinding algorithm visualizer with real-time animation and step-by-step execution.",
-        liveLink: "#",
-        githubLink: "#",
+        category: "Dev",
+        liveLink: undefined,
+        githubLink: undefined,
       },
       {
         id: "2",
         title: "CampusConnect",
         tags: ["MERN Stack"],
         description: "Student collaboration platform for project teams, study groups, and campus events.",
-        liveLink: "#",
-        githubLink: "#",
+        category: "College",
+        liveLink: undefined,
+        githubLink: undefined,
       },
       {
         id: "3",
         title: "DevPortfolio",
         tags: ["Next.js"],
         description: "High-performance personal website with flashlight reveal interaction and smooth animations.",
-        liveLink: "#",
-        githubLink: "#",
+        category: "Dev",
+        liveLink: undefined,
+        githubLink: undefined,
       },
     ];
   }

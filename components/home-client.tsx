@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useRef, useState, useEffect } from "react"
-import { motion, useMotionValue, useSpring } from "framer-motion"
+import { motion } from "framer-motion"
 import { Navbar } from "@/components/navbar"
 import { FloatingIcons } from "@/components/floating-icons"
 import { ExperienceSection } from "@/components/experience-section"
@@ -23,13 +23,15 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
   const [isClient, setIsClient] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  // rAF-based smooth cursor targets (pixel values relative to hero)
+  const targetX = useRef<number>(0)
+  const targetY = useRef<number>(0)
+  const currentX = useRef<number>(0)
+  const currentY = useRef<number>(0)
+  const cursorRef = useRef<HTMLDivElement | null>(null)
 
-  const springX = useSpring(mouseX, { stiffness: 150, damping: 20 })
-  const springY = useSpring(mouseY, { stiffness: 150, damping: 20 })
-
-  const [clipPath, setClipPath] = useState("circle(0px at 50% 50%)")
+  // remove per-frame state updates; we'll update overlay clipPath directly via ref
+  const overlayRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -39,26 +41,82 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
   useEffect(() => {
     if (!isClient || isTouchDevice) return
 
-    const unsubX = springX.on("change", (x) => {
-      const y = springY.get()
-      setClipPath(`circle(200px at ${x}px ${y}px)`)
-    })
-    const unsubY = springY.on("change", (y) => {
-      const x = springX.get()
-      setClipPath(`circle(200px at ${x}px ${y}px)`)
-    })
+    let raf = 0
+    // lerp factor (0-1) - higher = snappier, lower = softer.
+    // Lowered for a heavier, more inertial feel. Tune upward for less weight.
+    const ease = 0.14
 
-    return () => {
-      unsubX()
-      unsubY()
+    const loop = () => {
+      // lerp current -> target
+      currentX.current += (targetX.current - currentX.current) * ease
+      currentY.current += (targetY.current - currentY.current) * ease
+
+      // clamp to hero bounds
+      if (heroRef.current) {
+        const r = heroRef.current.getBoundingClientRect()
+        currentX.current = Math.max(0, Math.min(currentX.current, r.width))
+        currentY.current = Math.max(0, Math.min(currentY.current, r.height))
+      }
+
+      // compute movement speed to add a subtle scale for momentum (heavier feel)
+      const dx = targetX.current - currentX.current
+      const dy = targetY.current - currentY.current
+      const speed = Math.hypot(dx, dy)
+      // reduce max scale for a subtler effect
+      const scale = 1 + Math.min(0.08, speed / 220) // up to ~1.08 scale when moving fast
+
+      // update overlay clipPath directly (avoid per-frame setState)
+      if (overlayRef.current) {
+        overlayRef.current.style.clipPath = `circle(200px at ${currentX.current}px ${currentY.current}px)`
+      }
+
+      // update cursor element transform directly (avoids rerenders)
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${currentX.current}px, ${currentY.current}px) translate(-50%, -50%) scale(${scale})`
+      }
+
+      raf = requestAnimationFrame(loop)
     }
-  }, [isClient, isTouchDevice, springX, springY])
+
+    raf = requestAnimationFrame(loop)
+
+    return () => cancelAnimationFrame(raf)
+  }, [isClient, isTouchDevice])
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!heroRef.current || isTouchDevice) return
     const rect = heroRef.current.getBoundingClientRect()
-    mouseX.set(e.clientX - rect.left)
-    mouseY.set(e.clientY - rect.top)
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    if (Number.isFinite(x) && Number.isFinite(y)) {
+      targetX.current = x
+      targetY.current = y
+    }
+  }
+
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    if (!heroRef.current || isTouchDevice) return
+    // keep last target on leave to avoid snapping
+  }
+
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    if (!heroRef.current || isTouchDevice) return
+    const rect = heroRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    if (Number.isFinite(x) && Number.isFinite(y)) {
+      targetX.current = x
+      targetY.current = y
+      // seed current so we don't animate from 0,0 on first enter
+      currentX.current = x
+      currentY.current = y
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
+      }
+      if (overlayRef.current) {
+        overlayRef.current.style.clipPath = `circle(200px at ${x}px ${y}px)`
+      }
+    }
   }
 
   const headlineStyles: React.CSSProperties = {
@@ -75,6 +133,8 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
         id="hero"
         ref={heroRef}
         onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={handleMouseEnter}
         className="relative w-full h-screen overflow-hidden cursor-none"
       >
         <div className="absolute inset-0 bg-[#F8F8F8]">
@@ -142,10 +202,9 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
 
         {!isTouchDevice && (
           <motion.div
+            ref={overlayRef}
             className="absolute inset-0 bg-[#0A0A0A] hidden md:block"
-            style={{
-              clipPath: isClient ? clipPath : "circle(0px at 50% 50%)",
-            }}
+            style={{}}
           >
             {/* Grid pattern (inverted) */}
             <div
@@ -212,13 +271,13 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
 
         {/* Custom crosshair cursor */}
         {!isTouchDevice && (
-          <motion.div
+          <div
+            ref={cursorRef}
             className="pointer-events-none absolute z-100 hidden md:block"
             style={{
-              x: springX,
-              y: springY,
-              translateX: "-50%",
-              translateY: "-50%",
+              transform: `translate(${currentX.current}px, ${currentY.current}px) translate(-50%, -50%) scale(1)`,
+              willChange: "transform, box-shadow",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.10)",
             }}
           >
             <div className="relative w-8 h-8">
@@ -226,7 +285,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
               <div className="absolute top-1/2 left-1/2 w-3 h-1px -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
               <div className="absolute top-1/2 left-1/2 w-1px h-3 -translate-x-1/2 -translate-y-1/2 bg-white mix-blend-difference" />
             </div>
-          </motion.div>
+          </div>
         )}
       </section>
 
