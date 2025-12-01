@@ -1,9 +1,5 @@
 {
   "app": {
-    "[project]/app/_not-found/page": [
-      "static/media/Inter_Variable-s.p.53d7b668.woff2",
-      "static/media/FiraCode_Regular-s.p.7877ccda.woff2"
-    ],
     "[project]/app/page": [
       "static/media/Inter_Variable-s.p.53d7b668.woff2",
       "static/media/FiraCode_Regular-s.p.7877ccda.woff2"

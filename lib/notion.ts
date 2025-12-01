@@ -213,7 +213,7 @@ export const getExperience = async (): Promise<Experience[]> => {
       return {
         id: page.id,
         role: page.properties.Role?.title[0]?.plain_text || "Untitled Role",
-        org: page.properties.Organization?.rich_text[0]?.plain_text || "",
+        org: page.properties.Company?.rich_text[0]?.plain_text || "",
         date: page.properties.Date?.rich_text[0]?.plain_text || "",
         description: page.properties.Description?.rich_text[0]?.plain_text || "",
       };
