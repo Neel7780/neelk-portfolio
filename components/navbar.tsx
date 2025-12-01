@@ -23,7 +23,7 @@ export function Navbar() {
             onClick={() => scrollToSection("hero")}
             className="text-sm tracking-[0.15em] font-semibold text-black hover:opacity-60 transition-opacity"
           >
-            NEEL.DEV
+            NEEL.TECH
           </button>
         </div>
 
