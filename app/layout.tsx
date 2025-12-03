@@ -25,8 +25,7 @@ const firaCode = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Neel Khatri | Full Stack Developer",
-  description: "2nd Year CS Student building scalable solutions with C++, MERN, and Next.js",
+  title: "Neel Khatri",
   icons: {
     icon: [
       {
