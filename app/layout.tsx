@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import { Providers } from "@/app/providers"
+import { MobileAlert } from "@/components/mobile-alert"
 import "./globals.css"
 
 // Use local fonts shipped with the repo to avoid runtime Google font resolution
@@ -54,7 +55,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased transition-colors duration-300`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <MobileAlert />
+        </Providers>
         <Analytics />
       </body>
     </html>

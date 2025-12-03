@@ -29,7 +29,6 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8 text-xs tracking-[0.12em] uppercase font-medium">
             <button
               onClick={() => scrollToSection("experience")}
@@ -57,9 +56,7 @@ export function Navbar() {
             </button>
           </div>
 
-          <div className="hidden md:block">
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
 
           {/* Mobile hamburger */}
           <button
@@ -127,9 +124,6 @@ export function Navbar() {
               >
                 Contact
               </button>
-              <div className="mt-4">
-                <ThemeToggle />
-              </div>
             </motion.div>
           </motion.div>
         )}
