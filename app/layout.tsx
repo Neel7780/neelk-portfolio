@@ -2,15 +2,14 @@ import type React from "react"
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
+import { Providers } from "@/app/providers"
 import "./globals.css"
 
-// Use local fonts to avoid Google Fonts download failures in restricted environments.
-// Place font files under `public/fonts/` (see project README or instructions below).
+// Use local fonts shipped with the repo to avoid runtime Google font resolution
 const inter = localFont({
   src: [
     {
       path: "../public/fonts/Inter-Variable.woff2",
-      // variable font contains multiple weights — adjust if you use separate files
     },
   ],
   variable: "--font-sans",
@@ -28,7 +27,6 @@ const firaCode = localFont({
 export const metadata: Metadata = {
   title: "Neel Khatri | Full Stack Developer",
   description: "2nd Year CS Student building scalable solutions with C++, MERN, and Next.js",
-  generator: "v0.app",
   icons: {
     icon: [
       {
@@ -54,9 +52,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${firaCode.variable} font-sans antialiased transition-colors duration-300`}>
+        <Providers>{children}</Providers>
         <Analytics />
       </body>
     </html>

@@ -75,7 +75,6 @@
 }
 
 @theme inline {
-  /* Updated to Inter and monospace fonts */
   --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
   --font-mono: "Fira Code", "Geist Mono", monospace;
   --color-background: var(--background);
@@ -171,4 +170,36 @@ html {
 
 .animate-float-medium {
   animation: float-medium 4s ease-in-out infinite;
+}
+
+/* Blinking cursor animation for typewriter */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Faster blinking cursor animation (750ms) */
+@keyframes blink-fast {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink-fast {
+  animation: blink-fast 750ms step-end infinite;
 }

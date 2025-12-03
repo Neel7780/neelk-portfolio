@@ -7,7 +7,7 @@ export function ContactSection() {
   const email = "neelkhatri7780@gmail.com"
 
   return (
-    <section id="contact" className="bg-[#0A0A0A] py-32 md:py-40 lg:py-48 px-6 md:px-8">
+    <section id="contact" className="bg-[#0A0A0A] dark:bg-zinc-950 py-32 md:py-40 lg:py-48 px-6 md:px-8 transition-colors duration-300">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,7 +62,7 @@ export function ContactSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="mt-20 text-[10px] text-white/20 tracking-[0.15em] uppercase"
+          className="mt-20 text-[10px] text-white/20 dark:text-white/20 tracking-[0.15em] uppercase"
         >
           Designed & Built by Neel Khatri © 2025
         </motion.p>
