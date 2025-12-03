@@ -6,7 +6,6 @@ import { Providers } from "@/app/providers"
 import { MobileAlert } from "@/components/mobile-alert"
 import "./globals.css"
 
-// Use local fonts shipped with the repo to avoid runtime Google font resolution
 const inter = localFont({
   src: [
     {
@@ -31,19 +30,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/icon.jpeg",
+        type: "image/jpeg",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/icon.jpeg",
   },
 }
 
