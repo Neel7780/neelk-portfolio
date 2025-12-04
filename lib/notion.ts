@@ -88,6 +88,7 @@ export interface Experience {
   org: string;
   date: string;
   description: string;
+  Company_LiveLink?: string;
 }
 
 export const getProjects = async (): Promise<Project[]> => {
@@ -227,6 +228,7 @@ export const getExperience = async (): Promise<Experience[]> => {
         org: page.properties.Company?.rich_text[0]?.plain_text || "",
         date: page.properties.Date?.rich_text[0]?.plain_text || "",
         description: page.properties.Description?.rich_text[0]?.plain_text || "",
+        Company_LiveLink: page.properties.Company_LiveLink?.url ? ensureProtocol(page.properties.Company_LiveLink.url) : undefined,
       };
     });
   } catch (error: any) {
