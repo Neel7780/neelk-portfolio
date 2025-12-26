@@ -32,7 +32,7 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
                 {/* Left column: Role & Org */}
                 <div className="md:col-span-5">
                   <h3 className="text-lg md:text-xl font-semibold text-black dark:text-white tracking-tight mb-1">{exp.role}</h3>
-                  <p className="text-sm text-black/50 dark:text-zinc-400">{exp.org}</p>
+                  <a className="text-sm text-black/50 dark:text-zinc-400" href={exp.Company_LiveLink} target="_blank" rel="noopener noreferrer">{exp.org}</a>
                 </div>
 
                 {/* Middle column: Date */}
