@@ -22,7 +22,7 @@ export function Navbar() {
         <div className="flex items-center">
           <button
             onClick={() => scrollToSection("hero")}
-            className="text-sm tracking-[0.15em] font-semibold text-black dark:text-white hover:opacity-60 transition-opacity"
+            className="text-sm tracking-[0.15em] font-semibold text-black dark:text-white hover:opacity-60 transition-opacity font-sans"
           >
             NEEL.TECH
           </button>

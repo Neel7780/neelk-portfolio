@@ -203,3 +203,79 @@ html {
 .animate-blink-fast {
   animation: blink-fast 750ms step-end infinite;
 }
+
+/* Spotify bar equalizer animation */
+@keyframes equalize {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 18px;
+  }
+}
+
+/* Particle rising and drifting animation for floating cards */
+@keyframes particle-rise-1 {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-20px, -70px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-rise-2 {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(22px, -85px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-rise-3 {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(-6px, -60px) scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-particle-1 {
+  animation: particle-rise-1 4s ease-in-out infinite;
+}
+
+.animate-particle-2 {
+  animation: particle-rise-2 4.8s ease-in-out infinite;
+}
+
+.animate-particle-3 {
+  animation: particle-rise-3 4.2s ease-in-out infinite;
+}
+
+

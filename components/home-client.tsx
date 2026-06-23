@@ -6,9 +6,11 @@ import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-mot
 import { useTheme } from "next-themes"
 import { Navbar } from "@/components/navbar"
 import { FloatingIcons } from "@/components/floating-icons"
+import { HeroCards } from "@/components/hero-cards"
 import { ExperienceSection } from "@/components/experience-section"
 import { ProjectsSection } from "@/components/projects-section"
 import { AboutSection } from "@/components/about-section"
+import { StatsSection } from "@/components/stats-section"
 import { ContactSection } from "@/components/contact-section"
 import { Github, Linkedin } from "lucide-react"
 import { Project, Experience } from "@/lib/notion"
@@ -54,6 +56,12 @@ function useTypewriter(words: string[], typingSpeed = 50, deletingSpeed = 30, pa
   return currentText
 }
 
+// Isolated typewriter component to prevent full-page re-renders
+function TypewriterText() {
+  const typewriterText = useTypewriter(["Software Developer", "Gamer", "Music Lover", "2nd Year Student"])
+  return <span>{typewriterText}</span>
+}
+
 interface HomeClientProps {
   projects: Project[];
   experience: Experience[];
@@ -66,6 +74,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
   const [isTouchDevice, setIsTouchDevice] = useState(false)
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [hoveredCard, setHoveredCard] = useState<"spotify" | "github" | "status" | null>(null)
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -74,8 +83,6 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
   const springY = useSpring(mouseY, { stiffness: 150, damping: 20 })
 
   const clipPath = useMotionTemplate`circle(200px at ${springX}px ${springY}px)`
-
-  const typewriterText = useTypewriter(["Software Developer", "Gamer", "Music Lover", "2nd Year Student"])
 
   useEffect(() => {
     setIsClient(true)
@@ -125,9 +132,16 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
           />
 
           <FloatingIcons variant={isDark ? "light" : "dark"} />
+          
+          {/* Desktop Floating Cards */}
+          <HeroCards 
+            variant={isDark ? "dark" : "light"} 
+            hoveredCard={hoveredCard}
+            setHoveredCard={setHoveredCard}
+          />
 
-          <div className="absolute inset-0 grid place-items-center px-6 md:px-8">
-            <div className="text-center w-full max-w-4xl">
+          <div className="absolute inset-0 flex flex-col items-center justify-center overflow-y-auto px-6 md:px-8 py-24 md:py-0 md:grid md:place-items-center">
+            <div className="text-center w-full max-w-4xl flex flex-col items-center justify-center">
               <h1
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-black dark:text-white uppercase font-sans transition-colors duration-300"
                 style={headlineStyles}
@@ -137,13 +151,23 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
 
               <div className="mt-4 md:mt-6 font-mono text-sm sm:text-base md:text-lg">
                 <span className="text-neutral-700 dark:text-neutral-300">19, </span>
-                <span className="text-neutral-700 dark:text-neutral-300">{typewriterText}</span>
+                <span className="text-neutral-700 dark:text-neutral-300"><TypewriterText /></span>
                 <span className="text-black dark:text-white animate-blink-fast">|</span>
               </div>
 
               <p className="mt-6 md:mt-8 text-sm md:text-base text-black/50 dark:text-white/40 tracking-wide transition-colors duration-300">
                 C++ • Next.js • Algorithms • MERN 
               </p>
+
+              {/* Mobile Stats Grid - Stacks beautifully on small screens */}
+              <div className="mt-12 block md:hidden w-full max-w-md z-50">
+                {/* <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-neutral-500 mb-6">
+                  ✨ Live Stats & Activity
+                </h3> */}
+                <div className="flex flex-col items-center gap-6">
+                  <HeroCards variant={isDark ? "dark" : "light"} isMobile={true} />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -199,6 +223,14 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
             />
 
             <FloatingIcons variant={isDark ? "dark" : "light"} />
+            
+            {/* Desktop Floating Cards (Inverted colors inside spotlight) */}
+            <HeroCards 
+              variant={isDark ? "light" : "dark"} 
+              hoveredCard={hoveredCard}
+              setHoveredCard={setHoveredCard}
+              pointerEventsNone={true}
+            />
 
             <div className="absolute inset-0 grid place-items-center px-6 md:px-8">
               <div className="text-center w-full max-w-4xl">
@@ -211,7 +243,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
 
                 <div className="mt-4 md:mt-6 font-mono text-sm sm:text-base md:text-lg">
                   <span className="text-green-400 dark:text-blue-600">19, </span>
-                  <span className="text-green-400 dark:text-blue-600">{typewriterText}</span>
+                  <span className="text-green-400 dark:text-blue-600"><TypewriterText /></span>
                   <span className="text-white dark:text-black animate-blink-fast">|</span>
                 </div>
 
@@ -275,6 +307,7 @@ export function HomeClient({ projects, experience }: HomeClientProps) {
       <ExperienceSection experience={experience} />
       <ProjectsSection projects={projects} />
       <AboutSection />
+      <StatsSection />
       <ContactSection />
     </div>
   )
