@@ -2,6 +2,41 @@ import { NextResponse } from "next/server"
 
 export const revalidate = 300 // Cache for 5 minutes
 
+async function getSpotifyAccessToken() {
+  const clientId = process.env.SPOTIFY_CLIENT_ID
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
+  const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN
+
+  if (clientId && clientSecret && refreshToken) {
+    try {
+      const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
+      const res = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${basic}`,
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          grant_type: "refresh_token",
+          refresh_token: refreshToken
+        }),
+        cache: "no-store"
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        if (data.access_token) {
+          return data.access_token
+        }
+      }
+    } catch (e) {
+      console.error("Failed to refresh Spotify access token:", e)
+    }
+  }
+
+  return process.env.SPOTIFY_ACCESS_TOKEN
+}
+
 export async function GET() {
   const githubUser = "Neel7780"
   const cfUser = "neel212006"
@@ -132,31 +167,59 @@ export async function GET() {
       }
     })(),
 
-    // 4. Fetch Spotify Real-Time Top Tracks
+    // 4. Fetch Spotify Real-Time Top Tracks & Top Artists
     (async () => {
-      const spotifyToken = process.env.SPOTIFY_ACCESS_TOKEN
+      const spotifyToken = await getSpotifyAccessToken()
       if (!spotifyToken) throw new Error("No Spotify token configured")
 
-      const res = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5", {
-        headers: {
-          Authorization: `Bearer ${spotifyToken}`
-        },
-        next: { revalidate: 300 }
-      })
-      if (!res.ok) throw new Error(`Spotify API responded with status ${res.status}`)
+      const [tracksRes, artistsRes] = await Promise.all([
+        fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5", {
+          headers: {
+            Authorization: `Bearer ${spotifyToken}`
+          },
+          next: { revalidate: 300 }
+        }),
+        fetch("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=5", {
+          headers: {
+            Authorization: `Bearer ${spotifyToken}`
+          },
+          next: { revalidate: 300 }
+        })
+      ])
 
-      const data = await res.json()
-      if (!data.items || !Array.isArray(data.items)) throw new Error("Invalid Spotify response structure")
+      let tracks = null
+      if (tracksRes.ok) {
+        const data = await tracksRes.json()
+        if (data.items && Array.isArray(data.items)) {
+          tracks = data.items.map((item: any, idx: number) => ({
+            rank: idx + 1,
+            name: item.name,
+            artist: item.artists.map((a: any) => a.name).join(", "),
+            album: item.album.name,
+            poster: item.album.images[0]?.url || "/spotify_album_art.jpg",
+            progress: 100 - idx * 12,
+            playUrl: item.external_urls?.spotify || "https://open.spotify.com"
+          }))
+        }
+      }
 
-      return data.items.map((item: any, idx: number) => ({
-        rank: idx + 1,
-        name: item.name,
-        artist: item.artists.map((a: any) => a.name).join(", "),
-        album: item.album.name,
-        poster: item.album.images[0]?.url || "/spotify_album_art.jpg",
-        progress: 100 - idx * 12,
-        playUrl: item.external_urls?.spotify || "https://open.spotify.com"
-      }))
+      let artists = null
+      if (artistsRes.ok) {
+        const data = await artistsRes.json()
+        if (data.items && Array.isArray(data.items)) {
+          artists = data.items.map((item: any, idx: number) => ({
+            rank: idx + 1,
+            name: item.name,
+            genres: item.genres?.slice(0, 2).join(" / ") || "Artist",
+            popularity: `${item.popularity}% Popularity`,
+            progress: item.popularity || (100 - idx * 12),
+            poster: item.images[0]?.url || "/spotify_album_art.jpg",
+            playUrl: item.external_urls?.spotify || "https://open.spotify.com"
+          }))
+        }
+      }
+
+      return { tracks, artists }
     })()
   ])
 
@@ -181,7 +244,7 @@ export async function GET() {
       hard: 30,
       ranking: 142000
     },
-    spotify: spotifyData.status === "fulfilled" ? spotifyData.value : null
+    spotify: spotifyData.status === "fulfilled" ? spotifyData.value : { tracks: null, artists: null }
   }
 
   return NextResponse.json(response)

@@ -16,7 +16,7 @@ const SpotifyLogo = (props: any) => (
 // Official LeetCode Logo
 const LeetCodeLogo = (props: any) => (
   <svg viewBox="0 0 24 24" fill="#F89F1B" {...props}>
-    <path d="M16.102 17.93l-2.697 2.607c-.466.45-1.211.45-1.677 0l-8-7.72c-.466-.45-.466-1.177 0-1.627l8-7.72c.466-.45 1.211-.45 1.677 0l2.697 2.607c.466.45.466 1.177 0 1.627l-5.333 5.15c-.466.45-.466 1.177 0 1.627l5.333 5.15c.466.45.466 1.177 0 1.627l-5.333 5.15c-.466.45-.466 1.177 0 1.627l2.697 2.607c.466.45 1.211.45 1.677 0l5.333-5.15zM21.435 12.78c.466-.45.466-1.177 0-1.627l-5.333-5.15c-.466-.45-1.211-.45-1.677 0l-2.697 2.607c-.466.45-.466 1.177 0 1.627l5.333 5.15c.466.45.466 1.177 0 1.627l-5.333 5.15c-.466.45-.466 1.177 0 1.627l2.697 2.607c.466.45 1.211.45 1.677 0l5.333-5.15z" />
+    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414 0-1.954l-4.148-4.148-.035-.035a1.374 1.374 0 0 0-.965-.438h-.839l.839 1.258-2.673 2.674 1.742 1.742 1.742-1.742.839 1.258.839-1.258.047.047 3.328 3.328a2.768 2.768 0 0 1 0 3.906l-2.396 2.392c-1.391 1.387-3.621 1.41-5.027.07l-.039-.039-4.277-4.193a3.178 3.178 0 0 1-.68-1.015 3.393 3.393 0 0 1-.035-1.445 3.197 3.197 0 0 1 .078-.305 3.149 3.149 0 0 1 .715-1.254l3.854-4.126 5.406-5.788c.371-.371.863-.559 1.355-.559z" />
   </svg>
 )
 
@@ -50,7 +50,7 @@ export function StatsSection() {
       })
   }, [])
 
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -60,7 +60,7 @@ export function StatsSection() {
     },
   }
 
-  const cardVariants = {
+  const cardVariants: any = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -82,14 +82,14 @@ export function StatsSection() {
     { rank: 5, name: "Chase Atlantic", genre: "Alternative / Rock", streams: "610 mins", progress: 47, poster: "/chase_art.jpg" },
   ]
 
-  const hasLiveSpotify = stats?.spotify && Array.isArray(stats.spotify) && stats.spotify.length > 0;
+  const hasLiveSpotify = stats?.spotify?.artists && Array.isArray(stats.spotify.artists) && stats.spotify.artists.length > 0;
 
   const spotifyItems = hasLiveSpotify 
-    ? stats.spotify.map((item: any) => ({
+    ? stats.spotify.artists.map((item: any) => ({
         rank: item.rank,
         name: item.name,
-        subtitle: item.artist,
-        detail: item.album,
+        subtitle: item.genres,
+        detail: item.popularity,
         progress: item.progress,
         poster: item.poster,
         playUrl: item.playUrl,
@@ -156,7 +156,7 @@ export function StatsSection() {
                     <span className="font-sans font-black tracking-wider uppercase text-base text-emerald-500">Spotify</span>
                   </div>
                   <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-                    {hasLiveSpotify ? "Live Top Tracks" : "Top Artists"}
+                    {hasLiveSpotify ? "Live Top Artists" : "Top Artists"}
                   </span>
                 </div>
 
@@ -168,7 +168,7 @@ export function StatsSection() {
 
                 {/* Artists/Tracks Ranked List */}
                 <div className="space-y-4">
-                  {spotifyItems.map((item) => (
+                  {spotifyItems.map((item: any) => (
                     <a
                       key={item.rank}
                       href={item.playUrl}

@@ -101,8 +101,8 @@ export function HeroCards({ variant, isMobile = false, hoveredCard = null, setHo
 
   // Spotify Card: Renders as a clickable link redirecting to your real Spotify profile
   const SpotifyDetailed = ({ isHovered }: { isHovered: boolean }) => {
-    const topTrack = stats?.spotify && Array.isArray(stats.spotify) && stats.spotify.length > 0
-      ? stats.spotify[0]
+    const topTrack = stats?.spotify?.tracks && Array.isArray(stats.spotify.tracks) && stats.spotify.tracks.length > 0
+      ? stats.spotify.tracks[0]
       : null
 
     const albumPoster = topTrack?.poster || "/spotify_album_art.jpg"
